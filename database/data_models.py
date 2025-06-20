@@ -1,21 +1,26 @@
-from sqlalchemy import Column, BigInteger, String, Integer, Float, Boolean
-from database.database import Base
+from sqlalchemy import Column, BigInteger, String, Integer, Float, Boolean, DateTime
+from database.database_connection import Base
 
 class Order(Base):
     __tablename__ = "orders"
-
+    
     ticket = Column(BigInteger, primary_key=True, index=True)
     login = Column(BigInteger)
     symbol = Column(String(20))
     comment = Column(String(255))
     external_id = Column(String(64))
-    time_setup = Column(BigInteger)           
+    time_setup = Column(BigInteger)
+    time_setup_sg = Column(DateTime, nullable=True)           
     type = Column(String(64))
     state = Column(String(20))
-    time_expiration = Column(BigInteger)      
-    time_done = Column(BigInteger)            
-    time_setup_msc = Column(BigInteger)       
-    time_done_msc = Column(BigInteger)        
+    time_expiration = Column(BigInteger)
+    time_expiration_sg = Column(DateTime, nullable=True)      
+    time_done = Column(BigInteger)
+    time_done_sg = Column(DateTime, nullable=True)            
+    time_setup_msc = Column(BigInteger)
+    time_setup_msc_sg = Column(DateTime, nullable=True)       
+    time_done_msc = Column(BigInteger)
+    time_done_msc_sg = Column(DateTime, nullable=True)
     type_filling = Column(String(20))
     type_time = Column(String(20))
     magic = Column(BigInteger)
@@ -32,13 +37,15 @@ class Order(Base):
 
 class Deal(Base):
     __tablename__ = "deals"
-
+    
     ticket = Column(BigInteger, primary_key=True, index=True)
     login = Column(BigInteger)
     order = Column(BigInteger)
     position_id = Column(BigInteger)
-    time = Column(BigInteger)              
-    time_msc = Column(BigInteger)          
+    time = Column(BigInteger)
+    time_sg = Column(DateTime, nullable=True)              
+    time_msc = Column(BigInteger)
+    time_msc_sg = Column(DateTime, nullable=True)
     type = Column(String(64))
     entry = Column(String(20))
     magic = Column(BigInteger)
@@ -61,10 +68,14 @@ class Position(Base):
     ticket = Column(BigInteger, primary_key=True, index=True)
     login = Column(BigInteger)
     identifier = Column(BigInteger, index=True)
-    time = Column(BigInteger)                 
-    time_msc = Column(BigInteger)             
-    time_update = Column(BigInteger)          
-    time_update_msc = Column(BigInteger)      
+    time = Column(BigInteger)
+    time_sg = Column(DateTime, nullable=True)                 
+    time_msc = Column(BigInteger)
+    time_msc_sg = Column(DateTime, nullable=True)             
+    time_update = Column(BigInteger)
+    time_update_sg = Column(DateTime, nullable=True)          
+    time_update_msc = Column(BigInteger)
+    time_update_msc_sg = Column(DateTime, nullable=True)
     type = Column(String(64))
     magic = Column(BigInteger)
     reason = Column(String(20))
@@ -74,7 +85,7 @@ class Position(Base):
     tp = Column(Float)
     price_current = Column(Float)
     swap = Column(Float)
-    xprofit = Column(Float)
+    profit = Column(Float)
     symbol = Column(String(20))
     comment = Column(String(255))
     external_id = Column(String(64))
