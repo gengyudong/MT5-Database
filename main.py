@@ -10,6 +10,7 @@ import json
 import traceback
 from datetime import datetime, timezone
 import pytz
+import uvicorn
 
 app = FastAPI()
 
@@ -206,6 +207,5 @@ async def position_data(positions: List[PositionBase], db: Session = Depends(get
         raise HTTPException(status_code=400, detail="Failed to update positions")
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
     print("Server started at http://127.0.0.1:8000")
